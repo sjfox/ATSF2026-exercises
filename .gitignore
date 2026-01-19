@@ -42,6 +42,7 @@ Temporary Items
 # Session Data files
 .RData
 .RDataTmp
+.quarto
 
 # User-specific files
 .Ruserdata
@@ -68,6 +69,8 @@ vignettes/*.pdf
 # knitr and R markdown default cache directories
 *_cache/
 /cache/
+*_rendered
+*_figs/
 
 # Temporary files created by R markdown
 *.utf8.md

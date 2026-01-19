@@ -1,0 +1,98 @@
+---
+title: "Week 2, Day 1 Exercises"
+author: "Rob J Hyndman and George Athanasopoulos (Spencer Fox edits)"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+## Caches files for quick loading
+knitr::opts_chunk$set(
+  cache = TRUE,
+  cache.path = file.path("_cache", knitr::current_input(), "")
+)
+
+library(fpp3)
+```
+
+# fpp3 2.10, Ex 1
+
+> Explore the following four time series: `Bricks` from `aus_production`, `Lynx` from `pelt`, `Close` from `gafa_stock`, `Demand` from `vic_elec`.
+>
+>   + Use `?` (or `help()`) to find out about the data in each series.
+>   + What is the time interval of each series?
+>   + Use `autoplot()` to produce a time plot of each series.
+>   + Describe the trends, seasonal, and cyclical patterns for each
+>   + For the `vic_elec`, modify the axis labels and title to be more accurate.
+
+## Bricks
+
+```{r}
+
+
+```
+
+
+## Lynx
+
+```{r}
+
+
+```
+
+
+## Close
+
+```{r}
+
+```
+
+## Demand
+
+```{r}
+
+```
+
+
+# fpp3 2.10, Ex 2
+
+> Use `filter()` to find what days corresponded to the peak closing price for each of the four stocks in `gafa_stock`.
+
+```{r}
+
+```
+
+# fpp3 2.10, Ex 3
+
+> Download the file `tute1.csv` from [the book website](http://OTexts.com/fpp3/extrafiles/tute1.csv), open it in Excel (or some other spreadsheet application), and review its contents. You should find four columns of information. Columns B through D each contain a quarterly series, labelled Sales, AdBudget and GDP. Sales contains the quarterly sales for a small company over the period 1981-2005. AdBudget is the advertising budget and GDP is the gross domestic product. All series have been adjusted for inflation.
+
+```{r}
+
+```
+
+# fpp3 2.10, Ex 4
+
+> The `USgas` package contains data on the demand for natural gas in the US.
+
+>    a. Install the `USgas` package.
+>    b. Create a tsibble from `us_total` with year as the index and state as the key.
+>    c. Plot the annual natural gas consumption by state for the New England area (comprising the states of Maine, Vermont, New Hampshire, Massachusetts, Connecticut and Rhode Island).
+
+```{r}
+
+
+```
+
+
+# fpp3 2.10, Ex 5
+
+> a. Download `tourism.xlsx` from [the book website](http://OTexts.com/fpp3/extrafiles/tourism.xlsx) and read it into R using `read_excel()` from the `readxl` package.
+> b. Create a tsibble which is identical to the `tourism` tsibble from the `tsibble` package.
+> c. Find what combination of `Region` and `Purpose` had the maximum number of overnight trips on average.
+> d. Create a new tsibble which combines the Purposes and Regions, and just has total trips by State.
+
+```{r}
+
+
+```

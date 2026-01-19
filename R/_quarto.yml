@@ -1,0 +1,14 @@
+project:
+  type: default
+  output-dir: _rendered
+
+format:
+  html:
+    fig-path: _figs
+    toc: true
+    toc_depth: 1
+    toc-floating: true
+    toc-location: left
+    toc-title: Exercise
+    number_sections: false
+    theme: fpp3.scss

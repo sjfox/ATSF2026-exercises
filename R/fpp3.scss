@@ -1,0 +1,126 @@
+/*-- scss:defaults --*/
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans|Merriweather|Source+Code+Pro');
+
+$theme-main: #6e3232;
+$theme-gray: #ebebeb;
+
+$body-bg: lighten($theme-gray, 20%);
+$body-color: darken($theme-gray, 70%);
+$link-color: $theme-main;
+$primary: $theme-main;
+$sidebar-bg: $theme-main;
+$sidebar-fg: lighten($theme-gray, 10%);
+
+$font-family-sans-serif: 'Fira Sans', sans-serif;
+$font-family-monospace: 'Source Code Pro', monospace;
+
+$h2-font-size: 1.5rem !default;
+$h3-font-size: 1.2rem !default;
+$h4-font-size: 1rem !default;
+
+$code-block-bg: $theme-gray;
+
+/*-- scss:rules --*/
+
+body {
+  font-family: Merriweather, serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: $theme-main;
+  font-family: $font-family-sans-serif;
+  font-weight: bold;
+}
+
+h1.title {
+  font-size: 2.5rem !important;
+}
+h1, {
+  border-bottom: 2px solid $theme-main;
+  margin-top: 50px !important;
+}
+
+.sidebar nav[role=doc-toc]>h2 {
+  font-size: 1.1rem !important;
+  font-family: $font-family-sans-serif;
+  font-weight: bold;
+}
+
+.header-section-number {
+  color: $theme-main;
+}
+
+a {
+  color: saturate($theme-main, 25%);
+  text-decoration: none;
+}
+
+a:hover {
+  color: saturate($theme-main, 100%);
+  font-weight: bold
+}
+
+dt {
+  color: $theme-main;
+}
+
+dd {
+  margin-bottom: 12px;
+  margin-left: 20px;
+  padding-left: 20px;
+}
+
+table {
+  background: lighten($theme-gray, 50%);
+  border: 0px;
+}
+
+table td, table th {
+  border: 1px;
+  font-size: 0.9rem;
+  height: 12px;
+  line-height: 1.2;
+  padding: 0;
+  cellpadding: 0;
+  cellspacing: 0;
+  text-shadow: none;
+}
+
+.table>:not(caption)>*>* {
+  background-color: lighten($theme-main, 60%);
+}
+
+th {
+  color: $body-color;
+  background-color: lighten($theme-main, 60%) !important;
+  font-weight: bold;
+}
+td {
+  background-color: lighten($theme-gray, 60%) !important;
+}
+
+blockquote {
+  quotes: none;
+  text-shadow: none;
+  color: darken($theme-gray, 60%) !important;
+  background: lighten($theme-main, 60%) !important;
+  padding:  7px 20px 7px 20px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-left: 0px;
+}
+
+code {
+  color: $body-color;
+}
+.quarto-title-meta,.quarto-title-meta-author {
+  font-family: $font-family-sans-serif;
+  color:  $theme-main;
+}
+
+.nav-link {
+  font-family: $font-family-sans-serif;
+}
