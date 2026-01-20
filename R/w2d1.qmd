@@ -65,7 +65,7 @@ library(fpp3)
 
 # fpp3 2.10, Ex 3
 
-> Download the file `tute1.csv` from [the book website](http://OTexts.com/fpp3/extrafiles/tute1.csv), open it in Excel (or some other spreadsheet application), and review its contents. You should find four columns of information. Columns B through D each contain a quarterly series, labelled Sales, AdBudget and GDP. Sales contains the quarterly sales for a small company over the period 1981-2005. AdBudget is the advertising budget and GDP is the gross domestic product. All series have been adjusted for inflation.
+> Download the file `tute1.csv` from [the book website](http://OTexts.com/fpp3/extrafiles/tute1.csv), open it in Excel (or some other spreadsheet application), and review its contents. You should find four columns of information. Columns B through D each contain a quarterly series, labelled Sales, AdBudget and GDP. Sales contains the quarterly sales for a small company over the period 1981-2005. AdBudget is the advertising budget and GDP is the gross domestic product. All series have been adjusted for inflation. Read in the file, turn it into a tsibble object, and plot it to describe the trends.
 
 ```{r}
 
