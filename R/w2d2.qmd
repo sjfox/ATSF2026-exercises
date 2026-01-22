@@ -1,0 +1,104 @@
+---
+title: "Week 2, Day 2 Exercises"
+author: "Rob J Hyndman and George Athanasopoulos (Spencer Fox edits)"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+## Caches files for quick loading
+knitr::opts_chunk$set(
+  cache = TRUE,
+  cache.path = file.path("_cache", knitr::current_input(), "")
+)
+
+library(fpp3)
+library(here)
+here::i_am("R/w2d2.qmd")
+```
+
+
+# fpp3 2.10, Ex 6
+
+> The `aus_arrivals` data set comprises quarterly international arrivals (in thousands) to Australia from Japan, New Zealand, UK and the US. Use `autoplot()`, `gg_season()` and `gg_subseries()` to compare the differences between the arrivals from these four countries. Can you identify any unusual observations?
+
+```{r}
+
+```
+
+
+# fpp3 2.10, Ex 7
+
+> Monthly Australian retail data is provided in aus_retail. Select one of the time series as follows (but choose your own seed value):
+>
+>    ```r
+>    set.seed(12345678)
+>    myseries <- aus_retail |>
+>      filter(`Series ID` == sample(aus_retail$`Series ID`,1))
+>    ```
+>
+> Explore your chosen retail time series using the following functions:
+>
+>    ```r
+>    autoplot(), gg_season(), gg_subseries(), gg_lag(), ACF() |> autoplot()
+>    ```
+> Describe the dynamics you observe.
+
+```{r}
+
+
+```
+
+
+# fpp3 2.10, Ex 8
+> Spencer advice: just choose 1-2 of these.
+> Use the following graphics functions: `autoplot()`, `gg_season()`, `gg_subseries()`, `gg_lag()`, `ACF()` and explore features from the following time series: "Total Private" `Employed` from `us_employment`, `Bricks` from `aus_production`, `Hare` from `pelt`, "H02" `Cost` from `PBS`, and `us_gasoline`.
+>
+>    + Can you spot any seasonality, cyclicity and trend?
+>    + What do you learn about the series?
+>    + What can you say about the seasonal patterns?
+>    + Can you identify any unusual years?
+
+
+```{r}
+
+```
+
+
+# fpp3 2.10, Ex 9
+
+> The following time plots and ACF plots correspond to four different time series. Your task is to match each time plot in the first row with one of the ACF plots in the second row.
+
+![](https://otexts.com/fpp3/fpp_files/figure-html/acfguess-1.png)
+
+
+
+# fpp3 2.10, Ex 10
+
+> The `aus_livestock` data contains the monthly total number of pigs slaughtered in Victoria, Australia, from Jul 1972 to Dec 2018. Use `filter()` to extract pig slaughters in Victoria between 1990 and 1995. Use `autoplot` and `ACF` for this data. How do they differ from white noise? If a longer period of data is used, what difference does it make to the ACF?
+
+```{r}
+
+```
+
+
+# fpp3 2.10, Ex 11
+
+> a. Use the following code to compute the daily changes in Google closing stock prices.
+>
+>      ```r
+>      dgoog <- gafa_stock |>
+>        filter(Symbol == "GOOG", year(Date) >= 2018) |>
+>        mutate(trading_day = row_number()) |>
+>        update_tsibble(index = trading_day, regular = TRUE) |>
+>        mutate(diff = difference(Close))
+>      ```
+>
+> b. Why was it necessary to re-index the tsibble?
+> c. Plot these differences and their ACF.
+> d. Do the changes in the stock prices look like white noise?
+
+```{r}
+
+```
