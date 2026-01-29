@@ -58,6 +58,7 @@ Temporary Items
 
 # RStudio files
 .Rproj.user/
+figs/
 
 # produced vignettes
 vignettes/*.html
