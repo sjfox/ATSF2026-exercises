@@ -1,0 +1,184 @@
+---
+title: "Week 3, Day 2 Exercises (Chapter 3)"
+author: "Rob J Hyndman and George Athanasopoulos (Spencer Fox edits)"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+## Caches files for quick loading
+knitr::opts_chunk$set(
+  cache = TRUE,
+  cache.path = file.path("_cache", knitr::current_input(), "")
+)
+
+library(fpp3)
+library(here)
+here::i_am("R/w3d2.qmd")
+
+# Install seasonal package if you have not already done so
+#install.packages("seasonal", repos = "https://cran.ms.unimelb.edu.au/")
+library(seasonal)
+```
+
+# fpp3 3.7, Ex 1
+
+> Consider the GDP information in `global_economy`. Plot the GDP per capita for each country over time. Which country has the highest GDP per capita? (extra work) How has this changed over time?
+
+```{r}
+
+
+```
+
+# fpp3 3.7, Ex 2
+
+> For each of the following series, make a graph of the data. If transforming seems appropriate, do so and describe the effect (choose two of the following).
+
+> * United States GDP from `global_economy`
+> * Slaughter of Victorian "Bulls, bullocks and steers" in `aus_livestock`
+> * Victorian Electricity Demand from `vic_elec`.
+> * Gas production from `aus_production`
+
+## United States GDP
+
+```{r}
+
+
+```
+
+# fpp3 3.7, Ex 3
+
+> Why is a Box-Cox transformation unhelpful for the `canadian_gas` data?
+
+```{r}
+
+
+```
+
+
+
+# fpp3 3.7, Ex 4
+
+> What Box-Cox transformation would you select for this retail data ?
+
+```{r}
+myseries <- aus_retail |>
+  filter(
+    `Series ID` == 'A3349767W',
+    Month < yearmonth("2018 Jan")
+  )
+
+
+```
+
+
+# fpp3 3.7, Ex 5
+
+> For the following series, find an appropriate Box-Cox transformation in order to stabilise the variance. Tobacco from `aus_production`, Economy class passengers between Melbourne and Sydney from `ansett`, and Pedestrian counts at Southern Cross Station from `pedestrian`. Choose one to do, or all 3 if you want a lot of practice.
+
+```{r}
+
+```
+
+
+# fpp3 3.7, Ex 7 (6)
+
+> Consider the last five years of the Gas data from `aus_production`.
+
+>    ```r
+>    gas <- tail(aus_production, 5*4) |> select(Gas)
+>    ```
+
+>    a. Plot the time series. Can you identify seasonal fluctuations and/or a trend-cycle?
+
+```{r}
+
+
+```
+
+
+>    b. Use `classical_decomposition` with `type=multiplicative` to calculate the trend-cycle and seasonal indices.
+>    c. Do the results support the graphical interpretation from part a?
+
+```{r}
+
+```
+
+>    d. Compute and plot the seasonally adjusted data.
+
+```{r}
+
+```
+
+>    e. Change one observation to be an outlier (e.g., add 300 to one observation), and recompute the seasonally adjusted data. What is the effect of the outlier?
+>    f. Does it make any difference if the outlier is near the end rather than in the middle of the time series?
+
+```{r}
+
+```
+
+
+# fpp3 3.7, Ex 8
+
+> Recall your retail time series data (from before). Decompose the series using X11. Does it reveal any outliers, or unusual features that you had not noticed previously?
+
+```{r}
+myseries2 <- aus_retail |>
+  filter(
+    `Series ID` == 'A3349767W',
+    Month < yearmonth("2018 Jan")
+  )
+
+
+```
+
+
+# fpp3 3.7, Ex 9
+
+> Figures 3.16 and 3.17 show the result of decomposing the number of persons in the civilian labour force in Australia each month from February 1978 to August 1995.
+
+>   a. Write about 3--5 sentences describing the results of the decomposition. Pay particular attention to the scales of the graphs in making your interpretation.
+
+
+>   b. Is the recession of 1991/1992 visible in the estimated components?
+
+
+# fpp3 3.7, Ex 10
+
+> This exercise uses the `canadian_gas` data (monthly Canadian gas production in billions of cubic metres, January 1960 -- February 2005).
+>
+>   a. Plot the data using `autoplot()`, `gg_subseries()` and `gg_season()` to look at the effect of the changing seasonality over time. What do you think is causing it to change so much?
+
+```{r}
+
+```
+
+>   b. Do an STL decomposition of the data. You will need to choose a seasonal window to allow for the changing shape of the seasonal component.
+
+```{r}
+ 
+
+```
+
+>   c. How does the seasonal shape change over time? [Hint: Try plotting the seasonal component using `gg_season()`.]
+
+```{r}
+
+
+```
+
+
+>   d. Can you produce a plausible seasonally adjusted series?
+
+```{r}
+
+
+```
+
+>   e. Compare the results with those obtained using SEATS and X11. How are they different?
+
+```{r}
+
+
+```
