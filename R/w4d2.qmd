@@ -1,0 +1,310 @@
+---
+title: "Week 4, Day 2 Exercises (Chapter 5)"
+author: "Rob J Hyndman and George Athanasopoulos (Spencer Fox edits)"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, warning = FALSE)
+library(fpp3)
+library(here)
+here::i_am("R/w4d2.qmd")
+```
+
+# fpp3 5.10, Ex 1
+
+> Produce forecasts for the following series using whichever of `NAIVE(y)`, `SNAIVE(y)` or `RW(y ~ drift())` is more appropriate in each case:
+>
+>   * Australian Population (`global_economy`)
+>   * Bricks (`aus_production`)
+>   * NSW Lambs (`aus_livestock`)
+>   * Household wealth (`hh_budget`)
+>   * Australian takeaway food turnover (`aus_retail`)
+
+## Australian population
+
+```{r}
+
+```
+
+## Australian clay brick production
+
+```{r}
+
+```
+
+## NSW Lambs
+
+```{r}
+
+```
+
+## Household wealth
+
+```{r}
+
+```
+
+## Australian takeaway food turnover
+
+```{r}
+
+```
+
+# fpp3 5.10, Ex 2
+
+> Use the Facebook stock price (data set `gafa_stock`) to do the following:
+>
+>   a. Produce a time plot of the series.
+
+```{r}
+
+```
+
+>   b. Produce forecasts using the drift method and plot them.
+
+```{r}
+
+
+```
+
+>   c. Show that the forecasts are identical to extending the line drawn between the first and last observations.
+
+```{r}
+
+```
+
+>   d. Try using some of the other benchmark functions to forecast the same data set. Which do you think is best? Why?
+
+```{r}
+
+```
+
+# fpp3 5.10, Ex 3
+
+> Apply a seasonal naïve method to the quarterly Australian beer production data from 1992. Check if the residuals look like white noise, and plot the forecasts. The following code will help.
+
+```{r}
+
+```
+
+# fpp3 5.10, Ex 4
+
+> Repeat the exercise for the Australian Exports series from `global_economy` and the Bricks series from `aus_production`. Use whichever of `NAIVE()` or `SNAIVE()` is more appropriate in each case.
+
+## Australian exports
+
+```{r}
+
+
+```
+
+## Australian brick production
+
+```{r}
+
+
+```
+
+# fpp3 5.10, Ex 5
+
+> Produce forecasts for the 7 Victorian series in `aus_livestock` using `SNAIVE()`. Plot the resulting forecasts including the historical data. Is this a reasonable benchmark for these series?
+
+```{r}
+
+```
+
+# fpp3 5.10, Ex 6
+
+> Are the following statements true or false? Explain your answer.
+>
+>   a. Good forecast methods should have normally distributed residuals.
+>
+>   b. A model with small residuals will give good forecasts.
+>
+>   c. The best measure of forecast accuracy is MAPE.
+>
+>   d. If your model doesn’t forecast well, you should make it more complicated.
+>
+>   e. Always choose the model with the best forecast accuracy as measured on the test set.
+
+
+```{r}
+
+```
+
+
+# fpp3 5.10, Ex 7
+
+> For your retail time series (from Exercise 8 in Section 2.10):
+>
+>   a. Create a training dataset consisting of observations before 2011.
+>   b. Check that your data have been split appropriately by producing the following plot.
+>   c. Calculate seasonal naïve forecasts using `SNAIVE()` applied to your training data (`myseries_train`).
+>   d. Check the residuals. Do the residuals appear to be uncorrelated and normally distributed?
+>   e. Produce forecasts for the test data.
+>   f. Compare the accuracy of your forecasts against the actual values.
+>   g. How sensitive are the accuracy measures to the amount of training data used?
+
+```{r}
+
+```
+
+# fpp3 5.10, Ex 8
+
+> Consider the number of pigs slaughtered in New South Wales (data set `aus_livestock`).
+>
+>   a. Produce some plots of the data in order to become familiar with it.
+
+```{r}
+
+```
+
+>   b. Create a training set of 486 observations, withholding a test set of 72 observations (6 years).
+
+```{r}
+
+```
+
+>   c. Try using various benchmark methods to forecast the training set and compare the results on the test set. Which method did best?
+
+```{r}
+
+```
+
+>   d. Check the residuals of your preferred method. Do they resemble white noise?
+
+```{r}
+
+```
+
+# fpp3 5.10, Ex 9
+
+>    a. Create a training set for household wealth (`hh_budget`) by withholding the last four years as a test set.
+
+```{r}
+
+```
+
+>    b. Fit all the appropriate benchmark methods to the training set and forecast the periods covered by the test set.
+
+```{r}
+
+```
+
+>    c. Compute the accuracy of your forecasts. Which method does best?
+
+```{r}
+
+```
+
+>    d. Do the residuals from the best method resemble white noise?
+
+```{r}
+
+```
+
+# fpp3 5.10, Ex 10
+
+>    a. Create a training set for Australian takeaway food turnover (`aus_retail`) by withholding the last four years as a test set.
+
+```{r}
+
+```
+
+>    b. Fit all the appropriate benchmark methods to the training set and forecast the periods covered by the test set.
+
+```{r}
+
+```
+
+>    c. Compute the accuracy of your forecasts. Which method does best?
+
+```{r}
+
+```
+
+>    d. Do the residuals from the best method resemble white noise?
+
+```{r}
+
+```
+
+# fpp3 5.10, Ex 11
+
+> We will use the bricks data from `aus_production` (Australian quarterly clay brick production 1956--2005) for this exercise.
+>
+>   a. Use an STL decomposition to calculate the trend-cycle and seasonal indices. (Experiment with having fixed or changing seasonality.)
+
+```{r}
+
+
+```
+
+>   b. Compute and plot the seasonally adjusted data.
+
+```{r}
+
+```
+
+>   c. Use a naïve method to produce forecasts of the seasonally adjusted data.
+
+```{r}
+
+```
+
+>   d. Use `decomposition_model()` to reseasonalise the results, giving forecasts for the original data.
+
+```{r}
+
+```
+
+>   e. Do the residuals look uncorrelated?
+
+```{r}
+
+```
+
+>   f. Repeat with a robust STL decomposition. Does it make much difference?
+
+```{r}
+
+```
+
+>   g. Compare forecasts from `decomposition_model()` with those from `SNAIVE()`, using a test set comprising the last 2 years of data. Which is better?
+
+```{r}
+
+
+```
+
+# fpp3 5.10, Ex 12
+
+> `tourism` contains quarterly visitor nights (in thousands) from 1998 to 2017 for 76 regions of Australia.
+>
+>   a. Extract data from the Gold Coast region using `filter()` and aggregate total overnight trips (sum over `Purpose`) using `summarise()`. Call this new dataset `gc_tourism`.
+
+```{r}
+
+```
+
+>   b. Using `slice()` or `filter()`, create three training sets for this data excluding the last 1, 2 and 3 years. For example, `gc_train_1 <- gc_tourism |> slice(1:(n()-4))`.
+
+```{r}
+
+```
+
+>   c. Compute one year of forecasts for each training set using the seasonal naïve (`SNAIVE()`) method. Call these `gc_fc_1`, `gc_fc_2` and `gc_fc_3`, respectively.
+
+```{r}
+
+```
+
+
+>   d. Use `accuracy()` to compare the test set forecast accuracy using MAPE. Comment on these.
+
+```{r}
+
+```

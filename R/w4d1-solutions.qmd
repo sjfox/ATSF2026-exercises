@@ -1,0 +1,118 @@
+---
+title: "Week 4, Day 1 Exercises (Chapter 4)"
+author: "Rob J Hyndman and George Athanasopoulos (Spencer Fox edits)"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, warning = FALSE)
+library(fpp3)
+library(here)
+here::i_am("R/w4d1-solutions.qmd")
+```
+
+# fpp3 4.6, Ex 1
+
+> Write a function to compute the mean and standard deviation of a time series, and apply it to the `PBS` data. Plot the series with the highest mean, and the series with the lowest standard deviation.
+
+```{r}
+meansd <- function(x) {
+  c(
+    mean = mean(x, na.rm = TRUE),
+    sd = sd(x, na.rm = TRUE)
+  )
+}
+pbs_features <- PBS |>
+  features(Cost, features = meansd)
+```
+
+Series with the highest mean:
+
+```{r}
+pbs_features |>
+  filter(mean == max(mean)) |>
+  left_join(PBS) |>
+  ggplot(aes(x = Month, y = Cost)) +
+  geom_line() +
+  facet_grid(vars(Concession, Type, ATC1, ATC2))
+```
+
+Series with the lowest standard deviation:
+
+```{r}
+pbs_features |>
+  filter(sd == min(sd)) |>
+  left_join(PBS) |>
+  ggplot(aes(x = Month, y = Cost)) +
+  geom_line() +
+  facet_grid(vars(Concession, Type, ATC1, ATC2))
+```
+
+# fpp3 4.6, Ex 2
+
+> Use `GGally::ggpairs()` to look at the relationships between the STL-based features for the `tourism` data. You might wish to change `seasonal_peak_year` and `seasonal_trough_year` to factors. Which is the peak quarter for holidays in each state?
+
+```{r}
+#| message: false
+
+library(GGally)
+tourism |>
+  features(Trips, feat_stl) |>
+  select(-Region, -State, -Purpose) |>
+  mutate(
+    seasonal_peak_year = factor(seasonal_peak_year),
+    seasonal_trough_year = factor(seasonal_trough_year),
+  ) |>
+  ggpairs()
+
+tourism |>
+  group_by(State) |>
+  summarise(Trips = sum(Trips)) |>
+  features(Trips, feat_stl) |>
+  select(State, seasonal_peak_year)
+```
+
+# fpp3 4.6, Ex 3
+
+> Use a feature-based approach to look for outlying series in the `PBS` data. What is unusual about the series you identify as "outliers".
+
+```{r}
+#| message: false
+#| warning: false
+
+library(broom)
+
+## Compute features (and omit series with missing features)
+PBS_feat <- PBS |>
+  features(Cost, feature_set(pkgs = "feasts")) |>
+  select(-`...26`) |>
+  na.omit()
+
+## Compute principal components
+PBS_prcomp <- PBS_feat |>
+  select(-Concession, -Type, -ATC1, -ATC2) |>
+  prcomp(scale = TRUE) |>
+  augment(PBS_feat)
+
+## Plot the first two components
+PBS_prcomp |>
+  ggplot(aes(x = .fittedPC1, y = .fittedPC2)) +
+  geom_point()
+
+## Pull out most unusual series from first principal component
+outliers <- PBS_prcomp |>
+  filter(.fittedPC1 > 6)
+outliers |>
+  select(ATC1, ATC2, Type, Concession)
+
+## Visualise the unusual series
+PBS |>
+  semi_join(outliers, by = c("Concession", "Type", "ATC1", "ATC2")) |>
+  autoplot(Cost) +
+  facet_grid(vars(Concession, Type, ATC1, ATC2)) +
+  labs(title = "Outlying time series in PC space")
+```
+
+These series are either all zeros, or have a single non-zero observation.

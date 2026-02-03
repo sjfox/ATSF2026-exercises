@@ -1,0 +1,42 @@
+---
+title: "Week 4, Day 1 Exercises (Chapter 4)"
+author: "Rob J Hyndman and George Athanasopoulos (Spencer Fox edits)"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, warning = FALSE)
+library(fpp3)
+library(here)
+here::i_am("R/w4d1.qmd")
+```
+
+# fpp3 4.6, Ex 1
+
+> Write a function to compute the mean and standard deviation of a time series, and apply it to the `PBS` data. Plot the series with the highest mean, and the series with the lowest standard deviation.
+
+```{r}
+
+```
+
+# fpp3 4.6, Ex 2
+
+> Use `GGally::ggpairs()` to look at the relationships between the STL-based features for the `tourism` data. You might wish to change `seasonal_peak_year` and `seasonal_trough_year` to factors. Which is the peak quarter for holidays in each state?
+
+```{r}
+
+```
+
+# fpp3 4.6, Ex 3
+
+> Use a feature-based approach to look for outlying series in the `PBS` data. What is unusual about the series you identify as "outliers"?
+
+```{r}
+
+
+```
+
+> **Reflection:**  
+> What is unusual about the outlying series you identified?
