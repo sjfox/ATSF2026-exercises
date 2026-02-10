@@ -29,11 +29,17 @@ here::i_am("R/w6d1.qmd")
 # Connecting your R session to the hub and reading in the data
 ```{r}
 ## Make a relative path to where the hub location is on your machine
-local_hub_path <- '../ATSF2026/'
+local_hub_path <- '../../ATSF2026/'
 ## Gather the data
 ## Need to change the path to point to where you downloaded the repository
 ts_con <- connect_target_timeseries(hub_path = local_hub_path)
 ts_con |> collect() -> wili_ts
+
+## Different ways to get the data if you prefer
+## Downloading should always work as long as you have internet
+wili_ts <- read_csv('https://raw.githubusercontent.com/sjfox/ATSF2026/refs/heads/main/target-data/time-series.csv')
+## Change this path to the local path to your repository
+wili_ts <- read_csv('../../ATSF2026/target-data/time-series.csv')
 
 ```
 

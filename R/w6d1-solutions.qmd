@@ -1,0 +1,169 @@
+---
+title: "Week 6, Day 1 Exercises"
+author: "Spencer J. Fox"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, warning = FALSE)
+
+library(tidyverse)
+library(fable)
+library(tsibble)
+library(cowplot)
+
+## Run these as needed
+## install.packages("arrow", repos = c("https://apache.r-universe.dev", "https://cran.r-project.org"))
+## install.packages("hubData", repos = c("https://hubverse-org.r-universe.dev", "https://cloud.r-project.org"))
+## install.packages("hubUtils")
+library(hubData)
+library(hubUtils)
+library(here)
+here::i_am("R/w6d1-solutions.qmd")
+```
+
+
+
+# Connecting your R session to the hub and reading in the data
+```{r}
+## Make a relative path to where the hub location is on your machine
+local_hub_path <- '../ATSF2026/'
+## Gather the data
+## Need to change the path to point to where you downloaded the repository
+ts_con <- connect_target_timeseries(hub_path = local_hub_path)
+ts_con |> collect() -> wili_ts
+
+
+## Different ways to get the data if you prefer
+## Downloading should always work as long as you have internet
+wili_ts <- read_csv('https://raw.githubusercontent.com/sjfox/ATSF2026/refs/heads/main/target-data/time-series.csv')
+## Change this path to the local path to your repository
+wili_ts <- read_csv('../../ATSF2026/target-data/time-series.csv')
+
+```
+
+# ATSF Forecasting Ex 1
+
+## Exercise 1: Convert to a tsibble and inspect the time series
+
+Instructions: Identify the date, location, and value columns in `wili_ts`. Convert the data to a `tsibble`, then plot the time series for a small set of locations so you can see the overall behavior and any missingness.
+
+```{r}
+# Solution
+# Inspect the column names to find the date, location, and value fields
+glimpse(wili_ts)
+
+# Convert to a tsibble with date index and location/target as keys
+wili_tsibble <- wili_ts |>
+  as_tsibble(index = target_end_date, key = c(location, target))
+
+# Quick time-series plot to inspect overall trends and gaps
+wili_tsibble |> autoplot()
+
+```
+
+## Exercise 2: Naive forecast for one location and a chosen forecast date
+
+Instructions: Choose a single location, fit a naive model using all data up to a specific origin date, then forecast four weeks ahead. Plot the historical series and the forecast together.
+
+```{r}
+# List available locations so we can choose one
+wili_tsibble |> 
+  distinct(location)
+
+# Pick one region and keep data up to a chosen origin date
+# This origin date is in the validation period (Oct 2015-May 2017)
+loc_tsibble <- wili_tsibble |> 
+  filter(location == 'HHS Region 5',
+         target_end_date < '2016-12-05')
+
+# Fit a naive model and forecast 4 weeks ahead
+loc_tsibble |>
+  model(NAIVE(observation)) |>
+  forecast(h = 4) -> loc_forecast
+
+# Plot forecast plus historical data (wide view)
+loc_forecast |> 
+  autoplot(wili_tsibble |> 
+             filter(target_end_date < '2017-01-15')) 
+# Zoom in around the origin date for readability
+loc_forecast |> 
+  autoplot(wili_tsibble |> 
+             filter(target_end_date > '2016-09-15',
+               target_end_date < '2017-01-15')) 
+```
+
+## Exercise 3: Naive forecasts for multiple locations from the same date
+
+Instructions: Pick a single origin date and fit naive models for all locations at once. Forecast forward and visualize them with small multiples.
+
+```{r}
+# Use all locations but keep data up to a shared origin date
+# The origin date is in the validation period (Oct 2015-May 2017)
+all_loc_tsibble <- wili_tsibble |> 
+  filter(target_end_date < '2016-12-05')
+
+# Fit a naive model for each location in parallel and forecast 4 weeks ahead
+all_loc_tsibble |>
+  model(NAIVE(observation)) |>
+  forecast(h = 4) -> all_loc_forecast
+
+# Plot the forecasts with small multiples by location
+all_loc_forecast |> 
+  autoplot(wili_tsibble |> 
+             filter(target_end_date > '2016-09-15',
+               target_end_date < '2017-01-15')) +
+  facet_wrap(~location, nrow = 3)
+```
+
+## Exercise 4: Transform the data before forecasting
+
+Instructions: Run a forecast on a transformed y-value such as a `log1p()`. Compare the transformed forecast with the original naive forecast.
+
+```{r}
+# Apply a variance-stabilizing transform before modeling
+# Use the same origin date as Exercise 3
+all_loc_tsibble |>
+  model(NAIVE(log1p(observation))) |>
+  forecast(h = 4) -> all_loc_forecast_tranformed
+
+# Plot transformed forecasts (note: still on transformed scale)
+all_loc_forecast_tranformed |> 
+  autoplot(wili_tsibble |> 
+             filter(target_end_date > '2016-09-15',
+               target_end_date < '2017-01-15')) +
+  facet_wrap(~location, nrow = 3)
+```
+
+## Exercise 5: Try a different model
+
+Instructions: Fit a different model (for example, `SNAIVE` or `RW`) on the same multi-location time series and compare its forecast to the naive forecast.
+
+```{r}
+# Seasonal naive model using a yearly lag as the seasonal period
+all_loc_tsibble |>
+  model(SNAIVE(observation~lag('year'))) |>
+  forecast(h = 4) -> all_loc_forecast_seasonal
+
+# Plot seasonal naive forecasts by location
+all_loc_forecast_seasonal |> 
+  autoplot(wili_tsibble |> 
+             filter(target_end_date > '2016-09-15',
+               target_end_date < '2017-01-15')) +
+  facet_wrap(~location, nrow = 3)
+
+# Random walk with drift as an alternative benchmark
+all_loc_tsibble |>
+  model(RW(observation ~ drift())) |>
+  forecast(h = 4) -> all_loc_forecast_rw
+
+# Plot random-walk forecasts by location
+all_loc_forecast_rw |> 
+  autoplot(wili_tsibble |> 
+             filter(target_end_date > '2016-09-15',
+               target_end_date < '2017-01-15')) +
+  facet_wrap(~location, nrow = 3)
+
+```
