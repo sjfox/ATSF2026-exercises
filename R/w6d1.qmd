@@ -1,0 +1,80 @@
+---
+title: "Week 6, Day 1 Exercises"
+author: "Spencer J. Fox"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, warning = FALSE)
+
+library(tidyverse)
+library(fable)
+library(tsibble)
+library(cowplot)
+
+## Run these as needed
+## install.packages("arrow", repos = c("https://apache.r-universe.dev", "https://cran.r-project.org"))
+## install.packages("hubData", repos = c("https://hubverse-org.r-universe.dev", "https://cloud.r-project.org"))
+## install.packages("hubUtils")
+library(hubData)
+library(hubUtils)
+library(here)
+here::i_am("R/w6d1.qmd")
+```
+
+
+
+# Connecting your R session to the hub and reading in the data
+```{r}
+## Make a relative path to where the hub location is on your machine
+local_hub_path <- '../ATSF2026/'
+## Gather the data
+## Need to change the path to point to where you downloaded the repository
+ts_con <- connect_target_timeseries(hub_path = local_hub_path)
+ts_con |> collect() -> wili_ts
+
+```
+
+# ATSF Forecasting Ex 1
+
+## Exercise 1: Convert to a tsibble and inspect the time series
+
+Instructions: Identify the date, location, and value columns in `wili_ts`. Convert the data to a `tsibble`, then plot the time series for a small set of locations so you can see the overall behavior and any missingness.
+
+```{r}
+
+```
+
+## Exercise 2: Naive forecast for one location and a chosen forecast date
+
+Instructions: Choose a single location, fit a naive model using all data up to a specific origin date, then forecast four weeks ahead. Plot the historical series and the forecast together.
+
+```{r}
+
+```
+
+## Exercise 3: Naive forecasts for multiple locations from the same date
+
+Instructions: Pick a single origin date and fit naive models for all locations at once. Forecast forward and visualize them with small multiples.
+
+```{r}
+
+```
+
+## Exercise 4: Transform the data before forecasting
+
+Instructions: Run a forecast on a transformed y-value such as a `log1p()`. Compare the transformed forecast with the original naive forecast.
+
+```{r}
+
+```
+
+## Exercise 5: Try a different model
+
+Instructions: Fit a different model (for example, `SNAIVE` or `RW`) on the same multi-location time series and compare its forecast to the naive forecast.
+
+```{r}
+
+```
