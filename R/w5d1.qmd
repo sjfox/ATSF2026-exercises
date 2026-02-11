@@ -1,5 +1,5 @@
 ---
-title: "Week 6, Day 1 Exercises"
+title: "Week 5, Day 1 Exercises"
 author: "Spencer J. Fox"
 ---
 
@@ -21,7 +21,7 @@ library(cowplot)
 library(hubData)
 library(hubUtils)
 library(here)
-here::i_am("R/w6d1.qmd")
+here::i_am("R/w5d1.qmd")
 ```
 
 

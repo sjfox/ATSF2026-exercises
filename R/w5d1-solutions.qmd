@@ -1,5 +1,5 @@
 ---
-title: "Week 6, Day 1 Exercises"
+title: "Week 5, Day 1 Exercises"
 author: "Spencer J. Fox"
 ---
 
@@ -21,7 +21,7 @@ library(cowplot)
 library(hubData)
 library(hubUtils)
 library(here)
-here::i_am("R/w6d1-solutions.qmd")
+here::i_am("R/w5d1-solutions.qmd")
 ```
 
 
@@ -91,8 +91,7 @@ loc_forecast |>
 # Zoom in around the origin date for readability
 loc_forecast |> 
   autoplot(wili_tsibble |> 
-             filter(target_end_date > '2016-09-15',
-               target_end_date < '2017-01-15')) 
+             filter_index('2016-09-15' ~ '2017-01-15')) 
 ```
 
 ## Exercise 3: Naive forecasts for multiple locations from the same date
