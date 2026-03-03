@@ -8,7 +8,7 @@ library(hubUtils)
 library(hubValidations)
 library(tidyverse)
 
-here::i_am("R/practice-forecast-starter.R")
+here::i_am("R/forecast-submission-template.R")
 
 # -----------------------------
 # Setup
