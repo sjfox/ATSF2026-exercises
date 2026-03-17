@@ -1,0 +1,110 @@
+---
+title: "Chapter 8 Exercises"
+author: "Rob J Hyndman and George Athanasopoulos (Spencer Fox edits)"
+
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, cache = TRUE)
+
+library(fpp3)
+library(here)
+here::i_am("R/Chapter8.qmd")
+```
+
+# fpp3 8.8, Ex1
+
+> Consider the the number of pigs slaughtered in Victoria, available in the `aus_livestock` dataset.
+
+>   a. Use the `ETS()` function in R to estimate the equivalent model for simple exponential smoothing. Find the optimal values of $\alpha$ and $\ell_0$, and generate forecasts for the next four months.
+
+```{r}
+#| label: ex1a
+
+```
+
+>   b. Produce the four-step forecast plot.
+
+```{r}
+#| label: ex1b
+#| dependson: ex1a
+
+
+```
+
+# fpp3 8.8, Ex7
+
+> Find an ETS model for the Gas data from `aus_production` and forecast the next few years. First plot the data, and comment on why multiplicative seasonality is necessary here. Then experiment with models with and without damped trends. Check the residuals of the best model and then forecast three years ahead with it. 
+
+```{r}
+#| label: ex7
+
+```
+
+# fpp3 8.8, Ex11
+
+> For this exercise use the quarterly number of arrivals to Australia from New Zealand, 1981 Q1 -- 2012 Q3, from data set `aus_arrivals`.
+
+>   a. Make a time plot of your data and describe the main features of the series.
+
+```{r}
+#| label: ex11a
+nzarrivals <- aus_arrivals |> filter(Origin == "NZ")
+
+```
+
+>   b. Create a training set that withholds the last two years of available data. Forecast the test set using an appropriate model for Holt-Winters’ multiplicative method.
+
+```{r}
+#| label: ex11b
+
+```
+
+>   c. Why is multiplicative seasonality necessary here?
+
+```{r}
+#| label: ex11c
+
+```
+
+Before part d, remember that STL (Seasonal-Trend decomposition by Loess) separates a series into trend, seasonal, and irregular components. In fable, you can fit STL plus a model on the seasonally adjusted series using:
+
+```r
+# decomposition_model(STL(y), model(
+#   season_adjust = <model> or trend/other component>
+# ))
+```
+
+For this exercise, a common pattern is:
+
+```r
+decomposition_model(STL(log(Arrivals)), ETS(season_adjust))
+```
+
+>   d. Forecast the two-year test set using each of the following methods:
+>       i) an ETS model;
+>       ii) an additive ETS model applied to a log transformed series;
+>       iii) a seasonal naïve method;
+>       iv) an STL decomposition applied to the log transformed data followed by an ETS model applied to the seasonally adjusted (transformed) data.
+
+```{r}
+#| label: ex11d
+
+```
+
+>   e. Which method gives the best forecasts? Does it pass the residual tests?
+
+```{r}
+#| label: ex11e
+
+```
+
+>   f. Compare the same four methods using time series cross-validation instead of using a training and test set. Do you come to the same conclusions?
+
+```{r}
+#| label: ex11f
+
+```

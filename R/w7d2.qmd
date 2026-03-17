@@ -29,6 +29,7 @@ here::i_am("R/w7d2.qmd")
 
 ```{r}
 
+
 ```
 
 >   b. Produce a residual plot. Is the model adequate? Are there any outliers or influential observations?
